@@ -43,7 +43,9 @@ jobs:
     # Step 4: Build UART version with Autostart
     - name: Build nRF52840 UART Example
       working-directory: ot-nrf528xx
-      run: ./script/build nrf52840 UART_trans -DOT_AUTO_START=ON
+      env:
+        OT_CFLAGS: "-DOPENTHREAD_CONFIG_AUTO_START_ENABLE=1"
+      run: ./script/build nrf52840 UART_trans
 
     # Step 5: Rename UART ELF and HEX files
     - name: Rename UART binaries
@@ -55,7 +57,9 @@ jobs:
     # Step 6: Build USB version with Autostart
     - name: Build nRF52840 USB Example
       working-directory: ot-nrf528xx
-      run: ./script/build nrf52840 USB_trans -DOT_BOOTLOADER=USB -DOT_AUTO_START=ON
+      env:
+        OT_CFLAGS: "-DOPENTHREAD_CONFIG_AUTO_START_ENABLE=1"
+      run: ./script/build nrf52840 USB_trans -DOT_BOOTLOADER=USB
 
     # Step 7: Rename USB ELF and HEX files
     - name: Rename USB binaries
